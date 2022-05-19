@@ -19,7 +19,7 @@ model = nn.Sequential(
     nn.Linear(128, 64),
     nn.ReLU(),
     nn.Linear(64, 10),
-    nn.Softmax()
+    nn.Softmax(dim = 0)
 )
 model.load_state_dict(torch.load("mnist_nn.pt"))
 
@@ -47,11 +47,12 @@ img = np.zeros((28,28,3), np.uint8)
 cv2.namedWindow('Draw a Digit Here!')
 cv2.setMouseCallback('Draw a Digit Here!',line_drawing)
 
+print()
 while(1):
     inpt = img[:, :, 0].squeeze()
     logits = model(torch.tensor(inpt, dtype=torch.float32).view(784))
     val, idx = torch.topk(logits, 1)
-    print(f"Model Prediction: {idx.item()}")
+    print(f"Model Prediction: {idx.item()}\r", end="")
 
     cv2.imshow(f'Draw a Digit Here!',img)
     k = cv2.waitKey(1)
