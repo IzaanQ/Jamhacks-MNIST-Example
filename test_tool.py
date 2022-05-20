@@ -14,11 +14,11 @@ print("Press <enter> to continue...")
 input()
 
 model = nn.Sequential(
-    nn.Linear(784, 128),
+    nn.Linear(784, 16),
     nn.ReLU(),
-    nn.Linear(128, 64),
+    nn.Linear(16, 16),
     nn.ReLU(),
-    nn.Linear(64, 10),
+    nn.Linear(16, 10),
     nn.Softmax(dim = 0)
 )
 model.load_state_dict(torch.load("mnist_nn.pt"))
